@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora</title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
         }
-        .fundo{
-            background-image: linear-gradient(45deg,black ,blue);
+        .fundo {
+            background-image: linear-gradient(45deg, black, blue);
             height: 100vh;
             color: #fff;
             font-family: Arial, Helvetica, sans-serif;
             text-align: center;
         }
-        .calculadora{
+        .calculadora {
             position: absolute;
             background-color: rgba(0, 0, 0, 0.8);
             top: 50%;
@@ -25,7 +25,7 @@
             border-radius: 15px;
             padding: 15px;
         }
-        .botao{
+        .botao {
             width: 50px;
             height: 50px;
             font-size: 25px;
@@ -35,10 +35,10 @@
             border: none;
             color: #fff;
         }
-        .botao:hover{
+        .botao:hover {
             background-color: black;
         }
-        #resultado{
+        #resultado {
             background-color: white;
             width: 207px;
             height: 30px;
@@ -61,7 +61,7 @@
                     <td><button class="botao" onclick="clean()">C</button></td>
                     <td><button class="botao" onclick="back()"><</button></td>
                     <td><button class="botao" onclick="insert('/')">/</button></td>
-                    <td><button class="botao" onclick="insert('*')">X</button></td>
+                    <td><button class="botao" onclick="insert('*')">*</button></td>
                 </tr>
                 <tr>
                     <td><button class="botao" onclick="insert('7')">7</button></td>
@@ -89,30 +89,35 @@
         </div>
     </div>
     <script>
-        function insert(num)
-        {
-           var numero = document.getElementById('resultado').innerHTML;
-           document.getElementById('resultado').innerHTML = numero + num;
+        function insert(num) {
+            var numero = document.getElementById('resultado').innerHTML;
+            document.getElementById('resultado').innerHTML = numero + num;
         }
-        function clean()
-        {
-           document.getElementById('resultado').innerHTML = "";   
+
+        function clean() {
+            document.getElementById('resultado').innerHTML = "";
         }
-        function back()
-        {
+
+        function back() {
             var resultado = document.getElementById('resultado').innerHTML;
             document.getElementById('resultado').innerHTML = resultado.substring(0, resultado.length -1);
         }
-        function calcular()
-        {
+
+        function calcular() {
             var resultado = document.getElementById('resultado').innerHTML;
-            if(resultado)
-            {
-                document.getElementById('resultado').innerHTML = eval(resultado);
-            }
-            else
-            {
-                document.getElementById('resultado').innerHTML = "Nada..."
+            if (resultado) {
+                try {
+                    var final_resultado = eval(resultado);
+                    if (final_resultado === Infinity) {
+                        document.getElementById('resultado').innerHTML = "Erro: Divisão por zero";
+                    } else {
+                        document.getElementById('resultado').innerHTML = final_resultado;
+                    }
+                } catch (e) {
+                    document.getElementById('resultado').innerHTML = "Erro";
+                }
+            } else {
+                document.getElementById('resultado').innerHTML = "0";
             }
         }
     </script>
